@@ -1,0 +1,16 @@
+[Unit]
+Description=Job application agent
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=CHANGE_ME
+WorkingDirectory=/home/CHANGE_ME/job-agent
+ExecStartPre=/bin/sleep 10
+ExecStart=/usr/bin/xvfb-run -a -s "-screen 0 1400x2400x24" /home/CHANGE_ME/job-agent/.venv/bin/python /home/CHANGE_ME/job-agent/main.py
+Restart=on-failure
+RestartSec=15
+
+[Install]
+WantedBy=multi-user.target

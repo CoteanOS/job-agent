@@ -1,0 +1,33 @@
+# secrets and personal data: never commit these
+.env
+facts.txt
+cv.pdf
+*.pdf
+
+# generated and runtime
+agent.db
+letters/
+approved/
+*.png
+listing.html
+*.bak
+*.bak2
+
+# scratch / debug scripts
+t.py
+dbg*.py
+*probe.py
+fieldmap.py
+apply_patch.py
+finish_patch.py
+git_init.sh
+
+# python
+.venv/
+__pycache__/
+*.pyc
+*.pyo
+
+# os noise
+.DS_Store
+Thumbs.db
