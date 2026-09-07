@@ -16,6 +16,8 @@ from telegram.ext import (
     Application, CommandHandler, CallbackQueryHandler, ContextTypes,
 )
 
+from datetime import datetime
+
 import config
 import store
 import scraper
@@ -92,9 +94,20 @@ async def cycle(context: ContextTypes.DEFAULT_TYPE):
     log.info("cycle: %d scraped, %d new (cap %d)", len(jobs), len(fresh), config.MAX_PER_RUN)
     for j in fresh:
         await process_job(context.application, j)
-    if not fresh:
-        # keep this quiet in normal running; comment out if you want a heartbeat
-        log.info("cycle: nothing new")
+    stamp = datetime.now().strftime("%H:%M")
+    try:
+        if fresh:
+            await context.bot.send_message(
+                config.TELEGRAM_CHAT_ID,
+                f"Checked Rabobank: {len(fresh)} new role(s), drafting. "
+                f"(scanned {len(jobs)}) {stamp}")
+        else:
+            await context.bot.send_message(
+                config.TELEGRAM_CHAT_ID,
+                f"Checked Rabobank: no new roles. "
+                f"(scanned {len(jobs)}, all seen before) {stamp}")
+    except Exception:
+        log.exception("heartbeat message failed")
 
 
 async def on_tap(update: Update, context: ContextTypes.DEFAULT_TYPE):

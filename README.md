@@ -23,6 +23,11 @@ replying GO. Quality over spam, and I own the whole stack.
 6. I check the screenshot and reply GO to send, or NO to cancel. Nothing is
    submitted without GO.
 
+Every cycle also sends a short status message to my phone, whether it found
+anything or not. If there are new roles it says how many it is drafting. If
+there are none it says so, with a count of how many it scanned. That way I know
+the bot ran and the scraper is still reaching the site, even on a quiet day.
+
 ## Buttons
 
 - Approve: fill the form, screenshot it, wait for GO.
